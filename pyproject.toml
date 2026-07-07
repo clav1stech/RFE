@@ -1,0 +1,46 @@
+[project]
+name = "facturx-generator"
+version = "0.1.0"
+description = "Générateur de factures de test Factur-X / UBL avec mapping des BT EN16931."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "clav1stech" }]
+keywords = ["factur-x", "zugferd", "ubl", "en16931", "e-invoicing", "facturation"]
+
+dependencies = [
+    "streamlit>=1.36",
+    "lxml>=5.2",
+]
+
+[project.urls]
+Homepage = "https://github.com/clav1stech/rfe"
+Repository = "https://github.com/clav1stech/rfe"
+
+[project.scripts]
+facturx-gen = "facturx_generator.cli:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.2",
+    "ruff>=0.5",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/facturx_generator"]
+
+[tool.ruff]
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "W"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-q"
