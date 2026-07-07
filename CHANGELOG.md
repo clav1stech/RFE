@@ -10,6 +10,9 @@ et le projet suit le [Semantic Versioning](https://semver.org/lang/fr/).
 ### Ajouté
 - (à compléter au fil des développements)
 
+## [0.1.1] - 2026-07-08
+mapping BT EN16931 étendu à tous les champs sérialisés.
+
 ## [0.1.0] — 2026-07-07
 
 ### Ajouté
@@ -25,4 +28,5 @@ et le projet suit le [Semantic Versioning](https://semver.org/lang/fr/).
   tests `pytest`, lint `ruff`, CI GitHub Actions.
 
 [Non publié]: https://github.com/clav1stech/rfe/compare/v0.1...HEAD
+[0.1.1]: https://github.com/clav1stech/rfe/releases/tag/v0.1
 [0.1.0]: https://github.com/clav1stech/rfe/releases/tag/v0.1
