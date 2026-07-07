@@ -45,3 +45,6 @@ output/
 .vscode/
 .DS_Store
 Thumbs.db
+
+# tools/export_project.py output (jamais commité)
+Export/

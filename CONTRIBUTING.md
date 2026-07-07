@@ -28,6 +28,10 @@ Format : `type: résumé court à l'impératif`.
 gros commit fourre-tout. On commite dès qu'un incrément est stable et que les
 tests passent.
 
+**Exception — commit de release** : `vX.Y.Z — résumé` (sans préfixe de type),
+cf. § Versioning ci-dessous. C'est le seul commit qui déroge à ce tableau ; il
+sert de source de vérité à la régénération automatique du changelog.
+
 ## Branches
 
 - `main` : toujours verte (tests + lint OK). Considérée protégée.
@@ -48,17 +52,39 @@ complète et stable est livrée. Exemples :
 - `v0.1.0` — premier POC fonctionnel.
 - `v1.0.0` — version jugée production-ready.
 
-Tenir le [CHANGELOG.md](CHANGELOG.md) à jour à chaque release.
+Le commit de release a pour message `vX.Y.Z — résumé court à l'impératif ou au
+nom` (pas de préfixe `chore:` sur ce commit précis) : [CHANGELOG.md](CHANGELOG.md)
+se régénère **automatiquement** à partir de ce message via
+`tools/generate_changelog.py`, source de vérité unique — pas de saisie
+manuelle séparée.
 
 ### Publier une release
 
 ```bash
 git checkout main && git pull
-# mettre à jour la version dans pyproject.toml + CHANGELOG.md
-git commit -am "chore: release v0.1.0"
+# mettre à jour la version dans pyproject.toml
+git commit -am "v0.1.0 — premier POC fonctionnel"
+uv run python tools/generate_changelog.py   # régénère CHANGELOG.md, idempotent
+git add CHANGELOG.md && git commit -m "docs: changelog v0.1.0"
 git tag -a v0.1.0 -m "v0.1.0 — premier POC fonctionnel"
 git push origin main --tags
 ```
 
 Puis créer la release depuis l'interface GitHub (onglet *Releases*) en pointant
-sur le tag.
+sur le tag. Relancer `tools/generate_changelog.py` avant un tag (ou après un
+merge apportant plusieurs commits de version d'un coup) pour vérifier qu'aucune
+entrée n'a été oubliée — le script est idempotent, il n'ajoute que les
+versions absentes.
+
+## Exporter le projet
+
+`tools/export_project.py` génère un instantané du dépôt, utile hors du
+contrôle de version :
+
+```bash
+uv run python tools/export_project.py            # .txt curé pour une IA
+uv run python tools/export_project.py --backup    # .zip complet pour sauvegarde
+uv run python tools/export_project.py --only src/facturx_generator/cii.py
+```
+
+Les fichiers sont écrits dans `Export/` (gitignoré, jamais commité).
