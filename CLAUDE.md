@@ -8,11 +8,12 @@
 - Dès que tu **détectes une règle générale** du projet (invariant, convention, contrainte, préférence récurrente de l'utilisateur, piège à éviter), **ajoute-la ici** dans la section adéquate — ne la laisse pas seulement dans un commentaire de code ou dans l'échange.
 - Ne consigner que les règles **durables et générales**, pas un détail ponctuel propre à une seule tâche. En cas de doute sur la portée, demander avant d'inscrire.
 - Préférer **mettre à jour** une consigne existante plutôt que d'en empiler une quasi-identique ; garder ce fichier concis et sans doublon.
+- Ce fichier consigne les règles générales ; `docs/CODEMAP.md` consigne la **structure du code** (rôle de chaque fichier, flux de données, invariants d'implémentation). Un changement d'architecture (fichier renommé/déplacé, nouvelle dépendance entre modules, nouveau invariant de calcul) se met à jour là-bas, pas ici.
 
 ## Vue d'ensemble du projet
 `facturx-generator` : générateur de factures de test **Factur-X (CII) / UBL 2.1** avec mapping des Business Terms **EN 16931**. Outil pédagogique pour la dématérialisation des factures (e-invoicing, Chorus Pro, PDP).
 - `app.py` : **point d'entrée** de l'interface Streamlit — UI uniquement, aucune logique métier.
-- `src/facturx_generator/` : logique métier découplée de l'UI (réutilisable en CLI/API) — `models.py` (modèle facture + totaux), `mapping.py` (table BT EN16931 ↔ CII/UBL), `cii.py`/`ubl.py` (sérialisation par syntaxe), `profiles.py` (profils de factures de test), `generator.py` (façade de choix du format), `cli.py` (point d'entrée `facturx-gen`).
+- `src/facturx_generator/` : logique métier découplée de l'UI (réutilisable en CLI/API) — `models.py` (modèle facture + totaux), `mapping.py` (table BT EN16931 ↔ CII/UBL), `cii.py`/`ubl.py` (sérialisation par syntaxe), `profiles.py` (profils de factures de test), `generator.py` (façade de choix du format), `cli.py` (point d'entrée `facturx-gen`) — carte complète (flux de données, invariants, checklists d'ajout) dans `docs/CODEMAP.md`. **Lire la codemap avant d'intervenir** plutôt que de parcourir tout le code (fiabilité + économie de tokens).
 - `tests/` : tests pytest (miroir de `src/facturx_generator/`).
 - `tools/` : utilitaires hors exploitation (jamais importés par `app.py`/`src/`) — `generate_changelog.py` (régénère `CHANGELOG.md` depuis les commits de release) et `export_project.py` (export `.txt` curé pour IA ou `.zip` de sauvegarde dans `Export/`, gitignoré).
 - `CONTRIBUTING.md` : référence canonique et détaillée des conventions (commits, branches, SemVer) — ce fichier en reprend l'essentiel et ajoute les règles propres à Claude.

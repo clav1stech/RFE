@@ -67,6 +67,8 @@ rfe/
 │   ├── generator.py            # Façade de génération (choix du format)
 │   └── cli.py                  # Point d'entrée CLI `facturx-gen`
 ├── tests/                      # Tests pytest
+├── tools/                      # Utilitaires hors exploitation (export, changelog)
+├── docs/CODEMAP.md             # Carte du code (rôles, flux, invariants)
 ├── pyproject.toml              # Métadonnées + dépendances (PEP 621)
 ├── uv.lock                     # Verrou de dépendances (committé)
 ├── requirements.txt            # Généré depuis le lock (Community Cloud)

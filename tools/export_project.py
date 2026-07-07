@@ -1,10 +1,10 @@
 """Export du projet sous deux profils complémentaires.
 
     --ai       (défaut) : un unique .txt curé, destiné à être communiqué à une IA.
-                          Inclut le code ET la documentation (.md : CLAUDE, README,
-                          CONTRIBUTING), précédé d'un manifeste (git, version, sommaire,
-                          estimation de tokens). Exclut tools/ et uv.lock (bruit, faible
-                          densité d'information pour une analyse IA).
+                          Inclut le code ET la documentation (.md : CLAUDE, CODEMAP,
+                          CONTRIBUTING, README), précédé d'un manifeste (git, version,
+                          sommaire, estimation de tokens). Exclut tools/ et uv.lock (bruit,
+                          faible densité d'information pour une analyse IA).
     --backup            : un .zip complet et restaurable, destiné à la sauvegarde hors git.
                           Inclut TOUT le code source (y compris tools/), hors artefacts et
                           binaires. Rotation des N plus récents.
@@ -82,7 +82,7 @@ INCLUDED_EXTENSIONS_COMMON = {
 INCLUDED_EXTENSIONS_BACKUP_EXTRA = {".lock"}
 
 # Documents toujours conservés en profil --ai même sous --only (contexte minimal indispensable)
-AI_ALWAYS_KEEP = {"CLAUDE.md", "CONTRIBUTING.md"}
+AI_ALWAYS_KEEP = {"CLAUDE.md", "CONTRIBUTING.md", "docs/CODEMAP.md"}
 
 # Indice de langage pour les fences, aide au parsing côté IA
 _LANG_BY_SUFFIX = {
@@ -289,8 +289,8 @@ if __name__ == "__main__":
     parser.add_argument(
         "--only", action="append", default=None,
         help="Limiter l'export à un ou plusieurs chemins (répétable, ou séparés par des "
-             "virgules), ex. --only src/facturx_generator/cii.py. En profil --ai, CLAUDE.md "
-             "et CONTRIBUTING.md restent toujours inclus.",
+             "virgules), ex. --only src/facturx_generator/cii.py. En profil --ai, CLAUDE.md, "
+             "CONTRIBUTING.md et docs/CODEMAP.md restent toujours inclus.",
     )
     args = parser.parse_args()
     only = None
