@@ -28,9 +28,10 @@ Format : `type: résumé court à l'impératif`.
 gros commit fourre-tout. On commite dès qu'un incrément est stable et que les
 tests passent.
 
-**Exception — commit de release** : `vX.Y.Z — résumé` (sans préfixe de type),
-cf. § Versioning ci-dessous. C'est le seul commit qui déroge à ce tableau ; il
-sert de source de vérité à la régénération automatique du changelog.
+**Exception — commit de bump de version** : `vX.Y.Z — résumé` (sans préfixe
+de type), cf. § Versioning ci-dessous. C'est le seul commit qui déroge à ce
+tableau ; il sert de source de vérité à la régénération automatique du
+changelog.
 
 ## Branches
 
@@ -40,41 +41,60 @@ sert de source de vérité à la régénération automatique du changelog.
 
 ## Versioning — SemVer
 
-Tags `vMAJOR.MINOR.PATCH` :
+`__version__` dans `src/facturx_generator/__init__.py` est la **source de
+vérité unique** (affichée dans le titre du dashboard Streamlit ;
+`pyproject.toml` la reprend dynamiquement via `[tool.hatch.version]`, jamais
+une valeur dupliquée à la main).
 
-- **PATCH** : correction rétro-compatible.
-- **MINOR** : fonctionnalité rétro-compatible.
-- **MAJOR** : rupture de compatibilité.
+**Le versioning se fait à chaque commit significatif poussé sur `main`**, pas
+seulement à la publication d'une release :
 
-On crée un tag + une release GitHub **uniquement** quand une fonctionnalité
-complète et stable est livrée. Exemples :
+- **Z (patch)** : cas par défaut, tout changement significatif normal
+  (`feat:`, `fix:`, changement de comportement visible de l'app ou de la CLI).
+  **Jamais** pour un commit purement interne (doc, typo, commentaire,
+  outillage `tools/` sans impact utilisateur).
+- **Y (minor)** : réservé aux gros changements nécessitant une branche dédiée
+  (`feature/xxx`, chantier structurant) — remet Z à 0. Fusionné dans `main`
+  seulement quand la CI passe (cf. § Branches).
+- **X (major)** : jamais décidé seul, uniquement sur demande explicite.
 
-- `v0.1.0` — premier POC fonctionnel.
-- `v1.0.0` — version jugée production-ready.
+Le commit qui bump la version a pour message `vX.Y.Z — résumé court à
+l'impératif ou au nom` (seul commit à déroger au tableau Conventional
+Commits, cf. ci-dessus) : [CHANGELOG.md](CHANGELOG.md) se régénère
+**automatiquement** à partir de ce message via `tools/generate_changelog.py`
+— pas de saisie manuelle séparée.
 
-Le commit de release a pour message `vX.Y.Z — résumé court à l'impératif ou au
-nom` (pas de préfixe `chore:` sur ce commit précis) : [CHANGELOG.md](CHANGELOG.md)
-se régénère **automatiquement** à partir de ce message via
-`tools/generate_changelog.py`, source de vérité unique — pas de saisie
-manuelle séparée.
-
-### Publier une release
+### Bumper la version (à chaque commit significatif)
 
 ```bash
-git checkout main && git pull
-# mettre à jour la version dans pyproject.toml
-git commit -am "v0.1.0 — premier POC fonctionnel"
+# éditer __version__ dans src/facturx_generator/__init__.py
+git commit -am "v0.1.1 — description du changement"
 uv run python tools/generate_changelog.py   # régénère CHANGELOG.md, idempotent
-git add CHANGELOG.md && git commit -m "docs: changelog v0.1.0"
-git tag -a v0.1.0 -m "v0.1.0 — premier POC fonctionnel"
-git push origin main --tags
+git add CHANGELOG.md && git commit -m "docs: changelog v0.1.1"
+git push
 ```
 
-Puis créer la release depuis l'interface GitHub (onglet *Releases*) en pointant
-sur le tag. Relancer `tools/generate_changelog.py` avant un tag (ou après un
-merge apportant plusieurs commits de version d'un coup) pour vérifier qu'aucune
+Relancer `tools/generate_changelog.py` avant un tag (ou après un merge
+apportant plusieurs commits de version d'un coup) pour vérifier qu'aucune
 entrée n'a été oubliée — le script est idempotent, il n'ajoute que les
 versions absentes.
+
+### Tags et releases GitHub — un seul tag par Y
+
+Contrairement au bump de version (à chaque Z), **un seul tag/release par
+palier Y** (ex. `v0.1`, `v0.2`), jamais un par Z. Le tag `vX.Y` est **mobile** :
+à chaque bump Z sur cette ligne, on le retague sur le nouveau commit plutôt
+que de créer `vX.Y.Z` :
+
+```bash
+git tag -f vX.Y HEAD
+git push origin vX.Y --force
+```
+
+Le corps de la release s'enrichit au fil des Z (ne pas écraser l'historique
+des sections précédentes). Nouveau tag/release **uniquement** pour un nouveau
+Y. Ne jamais faire passer une release en « Latest » de sa propre initiative —
+uniquement sur demande explicite.
 
 ## Exporter le projet
 

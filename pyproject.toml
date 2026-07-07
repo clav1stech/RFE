@@ -1,6 +1,6 @@
 [project]
 name = "facturx-generator"
-version = "0.1.0"
+dynamic = ["version"]
 description = "Générateur de factures de test Factur-X / UBL avec mapping des BT EN16931."
 readme = "README.md"
 requires-python = ">=3.11"
@@ -32,6 +32,10 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/facturx_generator"]
+
+[tool.hatch.version]
+# Source de vérité unique : src/facturx_generator/__init__.py (__version__ = "X.Y.Z")
+path = "src/facturx_generator/__init__.py"
 
 [tool.ruff]
 line-length = 100

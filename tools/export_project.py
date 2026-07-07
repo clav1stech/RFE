@@ -34,11 +34,12 @@ export_dir = project_dir / "Export"
 BACKUP_KEEP = 15
 
 
-# Extraire la version depuis pyproject.toml (source de vérité unique, lue par regex)
+# Extraire la version depuis __init__.py (source de vérité unique, lue par regex ;
+# pyproject.toml la reprend dynamiquement via [tool.hatch.version], cf. CLAUDE.md)
 def _get_app_version():
-    pyproject = project_dir / "pyproject.toml"
-    with open(pyproject, "r", encoding="utf-8") as f:
-        match = re.search(r'^version\s*=\s*"(\d+)\.(\d+)\.(\d+)"', f.read(), re.MULTILINE)
+    init_py = project_dir / "src" / "facturx_generator" / "__init__.py"
+    with open(init_py, "r", encoding="utf-8") as f:
+        match = re.search(r'^__version__\s*=\s*"(\d+)\.(\d+)\.(\d+)"', f.read(), re.MULTILINE)
         if match:
             return int(match.group(1)), int(match.group(2)), int(match.group(3))
         return 0, 1, 0

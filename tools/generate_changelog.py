@@ -86,8 +86,18 @@ def _insert_entries(content: str, blocks: list[str]) -> str:
     return content[:insert_at] + "".join(blocks) + content[insert_at:]
 
 
+def _major_minor(version: str) -> str:
+    """`X.Y.Z` -> `X.Y` — un seul tag GitHub mobile par palier Y (cf. CONTRIBUTING.md)."""
+    major, minor, _patch = version.split(".")
+    return f"{major}.{minor}"
+
+
 def _update_footer_links(content: str, new_entries: list[tuple[str, str, str, str]]) -> str:
-    """Ajoute les liens `[X.Y.Z]: .../releases/tag/vX.Y.Z` et met à jour `[Non publié]`."""
+    """Ajoute les liens `[X.Y.Z]: .../releases/tag/vX.Y` et met à jour `[Non publié]`.
+
+    Le tag `vX.Y` est mobile (un seul par palier Y, retagué à chaque Z) : plusieurs
+    entrées X.Y.Z pointent donc légitimement vers le même tag `vX.Y`.
+    """
     repo_url = _repo_url()
     if not repo_url or not new_entries:
         return content
@@ -104,8 +114,8 @@ def _update_footer_links(content: str, new_entries: list[tuple[str, str, str, st
         footer_lines.pop(0)
 
     newest_version = new_entries[0][0]
-    unreleased_link = f"[Non publié]: {repo_url}/compare/v{newest_version}...HEAD"
-    new_links = [f"[{v}]: {repo_url}/releases/tag/v{v}" for v, *_ in new_entries]
+    unreleased_link = f"[Non publié]: {repo_url}/compare/v{_major_minor(newest_version)}...HEAD"
+    new_links = [f"[{v}]: {repo_url}/releases/tag/v{_major_minor(v)}" for v, *_ in new_entries]
 
     unreleased_idx = next(
         (i for i, line in enumerate(footer_lines) if line.startswith("[Non publié]:")), None
