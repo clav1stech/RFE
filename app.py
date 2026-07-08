@@ -12,6 +12,7 @@ from datetime import date
 from decimal import Decimal
 from pathlib import Path
 
+import pandas as pd
 import streamlit as st
 
 # Community Cloud exécute app.py à la racine : on expose `src/` au PYTHONPATH.
@@ -53,16 +54,32 @@ def _build_manual() -> Invoice:
         buyer_name = st.text_input("Nom acheteur (BT-44)", "Grenoble-Alpes Métropole")
         buyer_ref = st.text_input("Référence acheteur (BT-10)", "SERVICE-ACHATS")
 
-    st.markdown("**Ligne de facture (BG-25)**")
-    lc1, lc2, lc3, lc4 = st.columns(4)
-    with lc1:
-        item = st.text_input("Article (BT-153)", "Prestation")
-    with lc2:
-        qty = st.number_input("Quantité (BT-129)", min_value=0.0, value=1.0, step=1.0)
-    with lc3:
-        price = st.number_input("Prix unitaire (BT-146)", min_value=0.0, value=100.0)
-    with lc4:
-        vat = st.number_input("Taux TVA % (BT-152)", min_value=0.0, value=20.0)
+    st.markdown(
+        "**Lignes de facture (BG-25)** — ajouter/supprimer des lignes avec le tableau ci-dessous."
+    )
+    lines_df = st.data_editor(
+        pd.DataFrame(
+            [{"Article (BT-153)": "Prestation", "Quantité (BT-129)": 1.0,
+              "Unité (BT-130)": "C62", "Prix unitaire (BT-146)": 100.0,
+              "Taux TVA % (BT-152)": 20.0}]
+        ),
+        num_rows="dynamic",
+        use_container_width=True,
+        hide_index=True,
+    )
+
+    lines = [
+        InvoiceLine(
+            line_id=str(i),
+            name=str(row["Article (BT-153)"]),
+            quantity=Decimal(str(row["Quantité (BT-129)"])),
+            unit_code=str(row["Unité (BT-130)"]),
+            unit_price=Decimal(str(row["Prix unitaire (BT-146)"])),
+            vat_rate=Decimal(str(row["Taux TVA % (BT-152)"])),
+        )
+        for i, row in enumerate(lines_df.to_dict("records"), start=1)
+        if row["Article (BT-153)"]
+    ]
 
     return Invoice(
         invoice_number=number,
@@ -72,16 +89,7 @@ def _build_manual() -> Invoice:
         buyer_reference=buyer_ref,
         seller=Party(name=seller_name, country_code="FR"),
         buyer=Party(name=buyer_name, country_code="FR"),
-        lines=[
-            InvoiceLine(
-                line_id="1",
-                name=item,
-                quantity=Decimal(str(qty)),
-                unit_code="C62",
-                unit_price=Decimal(str(price)),
-                vat_rate=Decimal(str(vat)),
-            )
-        ],
+        lines=lines,
     )
 
 

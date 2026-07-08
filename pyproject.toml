@@ -11,6 +11,7 @@ keywords = ["factur-x", "zugferd", "ubl", "en16931", "e-invoicing", "facturation
 dependencies = [
     "streamlit>=1.36",
     "lxml>=5.2",
+    "pandas>=2.2",
 ]
 
 [project.urls]

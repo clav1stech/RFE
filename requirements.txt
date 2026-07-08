@@ -67,7 +67,9 @@ packaging==26.2
     #   altair
     #   streamlit
 pandas==3.0.3
-    # via streamlit
+    # via
+    #   facturx-generator
+    #   streamlit
 pillow==12.3.0
     # via streamlit
 protobuf==7.35.1

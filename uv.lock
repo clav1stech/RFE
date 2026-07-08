@@ -175,10 +175,10 @@ wheels = [
 
 [[package]]
 name = "facturx-generator"
-version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "lxml" },
+    { name = "pandas" },
     { name = "streamlit" },
 ]
 
@@ -191,6 +191,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "lxml", specifier = ">=5.2" },
+    { name = "pandas", specifier = ">=2.2" },
     { name = "streamlit", specifier = ">=1.36" },
 ]
 
