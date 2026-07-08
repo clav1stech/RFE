@@ -3,6 +3,7 @@
 ## Général
 - Toujours répondre en **français**, sauf si l'utilisateur demande explicitement une autre langue.
 - Développement avec Claude Code dans VSC sur PC ou Mac.
+- **Ne jamais mentionner nommément une personne** (collègues, contacts métier...) dans les issues/PR/commits GitHub ni dans les fichiers du dépôt — reformuler de façon générique (« à valider côté métier », « à vérifier »).
 
 ## Tenir ce fichier à jour
 - Dès que tu **détectes une règle générale** du projet (invariant, convention, contrainte, préférence récurrente de l'utilisateur, piège à éviter), **ajoute-la ici** dans la section adéquate — ne la laisse pas seulement dans un commentaire de code ou dans l'échange.
