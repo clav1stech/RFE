@@ -14,7 +14,7 @@ dématérialisation des factures (réforme e-invoicing, Chorus Pro, PDP).
 
 L'application est déployée gratuitement sur **Streamlit Community Cloud** :
 
-> 🔗 **https://clav1stech-rfe.streamlit.app** *(à activer, voir section déploiement)*
+> 🔗 **https://factur-x-generator.streamlit.app/** *(à activer, voir section déploiement)*
 
 Chaque `push` sur `main` redéploie automatiquement l'application.
 
