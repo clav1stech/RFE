@@ -1,0 +1,830 @@
+{
+  "BT-1": {
+    "label": "Numéro de facture",
+    "required_by_profile": {
+      "MINIMUM": "mandatory",
+      "BASIC WL": "mandatory",
+      "BASIC": "mandatory",
+      "EN 16931": "mandatory",
+      "EXTENDED": "mandatory"
+    },
+    "xpath_cii": "rsm:ExchangedDocument/ram:ID",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-2": {
+    "label": "Date d'émission",
+    "required_by_profile": {
+      "MINIMUM": "mandatory",
+      "BASIC WL": "mandatory",
+      "BASIC": "mandatory",
+      "EN 16931": "mandatory",
+      "EXTENDED": "mandatory"
+    },
+    "xpath_cii": "rsm:ExchangedDocument/ram:IssueDateTime/udt:DateTimeString",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-3": {
+    "label": "Code type de document",
+    "required_by_profile": {
+      "MINIMUM": "mandatory",
+      "BASIC WL": "mandatory",
+      "BASIC": "mandatory",
+      "EN 16931": "mandatory",
+      "EXTENDED": "mandatory"
+    },
+    "xpath_cii": "rsm:ExchangedDocument/ram:TypeCode",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-5": {
+    "label": "Code devise de la facture",
+    "required_by_profile": {
+      "MINIMUM": "mandatory",
+      "BASIC WL": "mandatory",
+      "BASIC": "mandatory",
+      "EN 16931": "mandatory",
+      "EXTENDED": "mandatory"
+    },
+    "xpath_cii": "rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:InvoiceCurrencyCode",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-9": {
+    "label": "Date d'échéance de paiement",
+    "required_by_profile": {
+      "MINIMUM": "optional",
+      "BASIC WL": "optional",
+      "BASIC": "optional",
+      "EN 16931": "optional",
+      "EXTENDED": "optional"
+    },
+    "xpath_cii": ".../ApplicableHeaderTradeSettlement/ram:SpecifiedTradePaymentTerms/ram:DueDateDateTime/udt:DateTimeString",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-10": {
+    "label": "Référence acheteur",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "optional",
+      "BASIC": "optional",
+      "EN 16931": "optional",
+      "EXTENDED": "optional"
+    },
+    "xpath_cii": ".../ApplicableHeaderTradeAgreement/ram:BuyerReference",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-22": {
+    "label": "Note libre sur la facture",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "optional",
+      "BASIC": "optional",
+      "EN 16931": "optional",
+      "EXTENDED": "optional"
+    },
+    "xpath_cii": "rsm:ExchangedDocument/ram:IncludedNote/ram:Content",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-25": {
+    "label": "Référence de la facture antérieure",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "conditional",
+      "BASIC": "conditional",
+      "EN 16931": "conditional",
+      "EXTENDED": "conditional"
+    },
+    "xpath_cii": ".../ApplicableHeaderTradeSettlement/ram:InvoiceReferencedDocument/ram:IssuerAssignedID",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-26": {
+    "label": "Date de la facture antérieure",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "conditional",
+      "BASIC": "conditional",
+      "EN 16931": "conditional",
+      "EXTENDED": "conditional"
+    },
+    "xpath_cii": ".../ApplicableHeaderTradeSettlement/ram:InvoiceReferencedDocument/ram:FormattedIssueDateTime/udt:DateTimeString",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-27": {
+    "label": "Nom du vendeur",
+    "required_by_profile": {
+      "MINIMUM": "mandatory",
+      "BASIC WL": "mandatory",
+      "BASIC": "mandatory",
+      "EN 16931": "mandatory",
+      "EXTENDED": "mandatory"
+    },
+    "xpath_cii": ".../SellerTradeParty/ram:Name",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-28": {
+    "label": "Nom commercial du vendeur",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "optional",
+      "BASIC": "optional",
+      "EN 16931": "optional",
+      "EXTENDED": "optional"
+    },
+    "xpath_cii": ".../SellerTradeParty/ram:SpecifiedLegalOrganization/ram:TradingBusinessName",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-29": {
+    "label": "Identifiant du vendeur",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "optional",
+      "BASIC": "optional",
+      "EN 16931": "optional",
+      "EXTENDED": "optional"
+    },
+    "xpath_cii": ".../SellerTradeParty/ram:GlobalID",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-30": {
+    "label": "Identifiant légal du vendeur (SIREN/SIRET)",
+    "required_by_profile": {
+      "MINIMUM": "conditional",
+      "BASIC WL": "conditional",
+      "BASIC": "conditional",
+      "EN 16931": "conditional",
+      "EXTENDED": "conditional"
+    },
+    "xpath_cii": ".../SellerTradeParty/ram:SpecifiedLegalOrganization/ram:ID",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-31": {
+    "label": "N° TVA intracommunautaire du vendeur",
+    "required_by_profile": {
+      "MINIMUM": "conditional",
+      "BASIC WL": "conditional",
+      "BASIC": "conditional",
+      "EN 16931": "conditional",
+      "EXTENDED": "conditional"
+    },
+    "xpath_cii": ".../SellerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID='VA']",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-32": {
+    "label": "Identifiant d'immatriculation fiscale du vendeur",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "optional",
+      "BASIC": "optional",
+      "EN 16931": "optional",
+      "EXTENDED": "optional"
+    },
+    "xpath_cii": ".../SellerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID='FC']",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-33": {
+    "label": "Informations légales complémentaires du vendeur",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "optional",
+      "BASIC": "optional",
+      "EN 16931": "optional",
+      "EXTENDED": "optional"
+    },
+    "xpath_cii": ".../SellerTradeParty/ram:Description",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-34": {
+    "label": "Adresse électronique du vendeur",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "optional",
+      "BASIC": "optional",
+      "EN 16931": "optional",
+      "EXTENDED": "optional"
+    },
+    "xpath_cii": ".../SellerTradeParty/ram:URIUniversalCommunication/ram:URIID",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-35": {
+    "label": "Ligne d'adresse 1 du vendeur",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "mandatory",
+      "BASIC": "mandatory",
+      "EN 16931": "mandatory",
+      "EXTENDED": "mandatory"
+    },
+    "xpath_cii": ".../SellerTradeParty/ram:PostalTradeAddress/ram:LineOne",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-36": {
+    "label": "Ligne d'adresse 2 du vendeur",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "optional",
+      "BASIC": "optional",
+      "EN 16931": "optional",
+      "EXTENDED": "optional"
+    },
+    "xpath_cii": ".../SellerTradeParty/ram:PostalTradeAddress/ram:LineTwo",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-37": {
+    "label": "Ville du vendeur",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "mandatory",
+      "BASIC": "mandatory",
+      "EN 16931": "mandatory",
+      "EXTENDED": "mandatory"
+    },
+    "xpath_cii": ".../SellerTradeParty/ram:PostalTradeAddress/ram:CityName",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-38": {
+    "label": "Code postal du vendeur",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "mandatory",
+      "BASIC": "mandatory",
+      "EN 16931": "mandatory",
+      "EXTENDED": "mandatory"
+    },
+    "xpath_cii": ".../SellerTradeParty/ram:PostalTradeAddress/ram:PostcodeCode",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-39": {
+    "label": "Subdivision de pays du vendeur",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "optional",
+      "BASIC": "optional",
+      "EN 16931": "optional",
+      "EXTENDED": "optional"
+    },
+    "xpath_cii": ".../SellerTradeParty/ram:PostalTradeAddress/ram:CountrySubDivisionName",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-40": {
+    "label": "Code pays du vendeur",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "mandatory",
+      "BASIC": "mandatory",
+      "EN 16931": "mandatory",
+      "EXTENDED": "mandatory"
+    },
+    "xpath_cii": ".../SellerTradeParty/ram:PostalTradeAddress/ram:CountryID",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-44": {
+    "label": "Nom de l'acheteur",
+    "required_by_profile": {
+      "MINIMUM": "mandatory",
+      "BASIC WL": "mandatory",
+      "BASIC": "mandatory",
+      "EN 16931": "mandatory",
+      "EXTENDED": "mandatory"
+    },
+    "xpath_cii": ".../BuyerTradeParty/ram:Name",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-45": {
+    "label": "Nom commercial de l'acheteur",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "optional",
+      "BASIC": "optional",
+      "EN 16931": "optional",
+      "EXTENDED": "optional"
+    },
+    "xpath_cii": ".../BuyerTradeParty/ram:SpecifiedLegalOrganization/ram:TradingBusinessName",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-46": {
+    "label": "Identifiant de l'acheteur",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "optional",
+      "BASIC": "optional",
+      "EN 16931": "optional",
+      "EXTENDED": "optional"
+    },
+    "xpath_cii": ".../BuyerTradeParty/ram:GlobalID",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-47": {
+    "label": "Identifiant légal de l'acheteur (SIREN/SIRET)",
+    "required_by_profile": {
+      "MINIMUM": "conditional",
+      "BASIC WL": "conditional",
+      "BASIC": "conditional",
+      "EN 16931": "conditional",
+      "EXTENDED": "conditional"
+    },
+    "xpath_cii": ".../BuyerTradeParty/ram:SpecifiedLegalOrganization/ram:ID",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-48": {
+    "label": "N° TVA intracommunautaire de l'acheteur",
+    "required_by_profile": {
+      "MINIMUM": "conditional",
+      "BASIC WL": "conditional",
+      "BASIC": "conditional",
+      "EN 16931": "conditional",
+      "EXTENDED": "conditional"
+    },
+    "xpath_cii": ".../BuyerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID='VA']",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-50": {
+    "label": "Ligne d'adresse 1 de l'acheteur",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "mandatory",
+      "BASIC": "mandatory",
+      "EN 16931": "mandatory",
+      "EXTENDED": "mandatory"
+    },
+    "xpath_cii": ".../BuyerTradeParty/ram:PostalTradeAddress/ram:LineOne",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-51": {
+    "label": "Ligne d'adresse 2 de l'acheteur",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "optional",
+      "BASIC": "optional",
+      "EN 16931": "optional",
+      "EXTENDED": "optional"
+    },
+    "xpath_cii": ".../BuyerTradeParty/ram:PostalTradeAddress/ram:LineTwo",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-52": {
+    "label": "Ville de l'acheteur",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "mandatory",
+      "BASIC": "mandatory",
+      "EN 16931": "mandatory",
+      "EXTENDED": "mandatory"
+    },
+    "xpath_cii": ".../BuyerTradeParty/ram:PostalTradeAddress/ram:CityName",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-53": {
+    "label": "Code postal de l'acheteur",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "mandatory",
+      "BASIC": "mandatory",
+      "EN 16931": "mandatory",
+      "EXTENDED": "mandatory"
+    },
+    "xpath_cii": ".../BuyerTradeParty/ram:PostalTradeAddress/ram:PostcodeCode",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-54": {
+    "label": "Subdivision de pays de l'acheteur",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "optional",
+      "BASIC": "optional",
+      "EN 16931": "optional",
+      "EXTENDED": "optional"
+    },
+    "xpath_cii": ".../BuyerTradeParty/ram:PostalTradeAddress/ram:CountrySubDivisionName",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-55": {
+    "label": "Code pays de l'acheteur",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "mandatory",
+      "BASIC": "mandatory",
+      "EN 16931": "mandatory",
+      "EXTENDED": "mandatory"
+    },
+    "xpath_cii": ".../BuyerTradeParty/ram:PostalTradeAddress/ram:CountryID",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-56": {
+    "label": "Point de contact de l'acheteur",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "optional",
+      "BASIC": "optional",
+      "EN 16931": "optional",
+      "EXTENDED": "optional"
+    },
+    "xpath_cii": ".../BuyerTradeParty/ram:DefinedTradeContact/ram:PersonName",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-57": {
+    "label": "Téléphone de contact de l'acheteur",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "optional",
+      "BASIC": "optional",
+      "EN 16931": "optional",
+      "EXTENDED": "optional"
+    },
+    "xpath_cii": ".../BuyerTradeParty/ram:DefinedTradeContact/ram:TelephoneUniversalCommunication/ram:CompleteNumber",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-58": {
+    "label": "Email de contact de l'acheteur",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "optional",
+      "BASIC": "optional",
+      "EN 16931": "optional",
+      "EXTENDED": "optional"
+    },
+    "xpath_cii": ".../BuyerTradeParty/ram:DefinedTradeContact/ram:EmailURIUniversalCommunication/ram:URIID",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-81": {
+    "label": "Code moyen de paiement",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "conditional",
+      "BASIC": "conditional",
+      "EN 16931": "conditional",
+      "EXTENDED": "conditional"
+    },
+    "xpath_cii": ".../ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementPaymentMeans/ram:TypeCode",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-82": {
+    "label": "Moyen de paiement (texte)",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "optional",
+      "BASIC": "optional",
+      "EN 16931": "optional",
+      "EXTENDED": "optional"
+    },
+    "xpath_cii": ".../SpecifiedTradeSettlementPaymentMeans/ram:Information",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-83": {
+    "label": "Information de rapprochement (référence de virement)",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "optional",
+      "BASIC": "optional",
+      "EN 16931": "optional",
+      "EXTENDED": "optional"
+    },
+    "xpath_cii": ".../ApplicableHeaderTradeSettlement/ram:PaymentReference",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-84": {
+    "label": "Identifiant du compte de paiement (IBAN)",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "conditional",
+      "BASIC": "conditional",
+      "EN 16931": "conditional",
+      "EXTENDED": "conditional"
+    },
+    "xpath_cii": ".../SpecifiedTradeSettlementPaymentMeans/ram:PayeePartyCreditorFinancialAccount/ram:IBANID",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-85": {
+    "label": "Nom du compte de paiement",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "optional",
+      "BASIC": "optional",
+      "EN 16931": "optional",
+      "EXTENDED": "optional"
+    },
+    "xpath_cii": ".../PayeePartyCreditorFinancialAccount/ram:AccountName",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-86": {
+    "label": "Identifiant BIC du prestataire de paiement",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "optional",
+      "BASIC": "optional",
+      "EN 16931": "optional",
+      "EXTENDED": "optional"
+    },
+    "xpath_cii": ".../PayeeSpecifiedCreditorFinancialInstitution/ram:BICID",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-109": {
+    "label": "Total hors taxes",
+    "required_by_profile": {
+      "MINIMUM": "mandatory",
+      "BASIC WL": "mandatory",
+      "BASIC": "mandatory",
+      "EN 16931": "mandatory",
+      "EXTENDED": "mandatory"
+    },
+    "xpath_cii": ".../SpecifiedTradeSettlementHeaderMonetarySummation/ram:TaxBasisTotalAmount",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-110": {
+    "label": "Montant total de TVA",
+    "required_by_profile": {
+      "MINIMUM": "mandatory",
+      "BASIC WL": "mandatory",
+      "BASIC": "mandatory",
+      "EN 16931": "mandatory",
+      "EXTENDED": "mandatory"
+    },
+    "xpath_cii": ".../SpecifiedTradeSettlementHeaderMonetarySummation/ram:TaxTotalAmount",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-112": {
+    "label": "Total toutes taxes comprises",
+    "required_by_profile": {
+      "MINIMUM": "mandatory",
+      "BASIC WL": "mandatory",
+      "BASIC": "mandatory",
+      "EN 16931": "mandatory",
+      "EXTENDED": "mandatory"
+    },
+    "xpath_cii": ".../SpecifiedTradeSettlementHeaderMonetarySummation/ram:GrandTotalAmount",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-113": {
+    "label": "Montant déjà payé",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "optional",
+      "BASIC": "optional",
+      "EN 16931": "optional",
+      "EXTENDED": "optional"
+    },
+    "xpath_cii": ".../SpecifiedTradeSettlementHeaderMonetarySummation/ram:TotalPrepaidAmount",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-114": {
+    "label": "Montant d'arrondi",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "optional",
+      "BASIC": "optional",
+      "EN 16931": "optional",
+      "EXTENDED": "optional"
+    },
+    "xpath_cii": ".../SpecifiedTradeSettlementHeaderMonetarySummation/ram:RoundingAmount",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-115": {
+    "label": "Net à payer",
+    "required_by_profile": {
+      "MINIMUM": "mandatory",
+      "BASIC WL": "mandatory",
+      "BASIC": "mandatory",
+      "EN 16931": "mandatory",
+      "EXTENDED": "mandatory"
+    },
+    "xpath_cii": ".../SpecifiedTradeSettlementHeaderMonetarySummation/ram:DuePayableAmount",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-116": {
+    "label": "Base imposable TVA (par taux)",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "mandatory",
+      "BASIC": "mandatory",
+      "EN 16931": "mandatory",
+      "EXTENDED": "mandatory"
+    },
+    "xpath_cii": ".../ApplicableTradeTax/ram:BasisAmount",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-117": {
+    "label": "Montant de TVA (par taux)",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "mandatory",
+      "BASIC": "mandatory",
+      "EN 16931": "mandatory",
+      "EXTENDED": "mandatory"
+    },
+    "xpath_cii": ".../ApplicableTradeTax/ram:CalculatedAmount",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-118": {
+    "label": "Code catégorie de TVA (ventilation)",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "mandatory",
+      "BASIC": "mandatory",
+      "EN 16931": "mandatory",
+      "EXTENDED": "mandatory"
+    },
+    "xpath_cii": ".../ApplicableTradeTax/ram:CategoryCode",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-119": {
+    "label": "Taux de TVA (ventilation)",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "conditional",
+      "BASIC": "conditional",
+      "EN 16931": "conditional",
+      "EXTENDED": "conditional"
+    },
+    "xpath_cii": ".../ApplicableTradeTax/ram:RateApplicablePercent",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-120": {
+    "label": "Motif d'exonération de TVA (texte)",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "conditional",
+      "BASIC": "conditional",
+      "EN 16931": "conditional",
+      "EXTENDED": "conditional"
+    },
+    "xpath_cii": ".../ApplicableTradeTax/ram:ExemptionReason",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-121": {
+    "label": "Motif d'exonération de TVA (code)",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "conditional",
+      "BASIC": "conditional",
+      "EN 16931": "conditional",
+      "EXTENDED": "conditional"
+    },
+    "xpath_cii": ".../ApplicableTradeTax/ram:ExemptionReasonCode",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-126": {
+    "label": "Identifiant de la ligne de facture",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "not_applicable",
+      "BASIC": "mandatory",
+      "EN 16931": "mandatory",
+      "EXTENDED": "mandatory"
+    },
+    "xpath_cii": ".../AssociatedDocumentLineDocument/ram:LineID",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-127": {
+    "label": "Note de ligne",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "not_applicable",
+      "BASIC": "optional",
+      "EN 16931": "optional",
+      "EXTENDED": "optional"
+    },
+    "xpath_cii": ".../AssociatedDocumentLineDocument/ram:IncludedNote/ram:Content",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-129": {
+    "label": "Quantité facturée",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "not_applicable",
+      "BASIC": "mandatory",
+      "EN 16931": "mandatory",
+      "EXTENDED": "mandatory"
+    },
+    "xpath_cii": ".../SpecifiedLineTradeDelivery/ram:BilledQuantity",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-130": {
+    "label": "Code unité de mesure",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "not_applicable",
+      "BASIC": "mandatory",
+      "EN 16931": "mandatory",
+      "EXTENDED": "mandatory"
+    },
+    "xpath_cii": ".../SpecifiedLineTradeDelivery/ram:BilledQuantity/@unitCode",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-131": {
+    "label": "Montant net de la ligne",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "not_applicable",
+      "BASIC": "mandatory",
+      "EN 16931": "mandatory",
+      "EXTENDED": "mandatory"
+    },
+    "xpath_cii": ".../SpecifiedLineTradeSettlement/ram:SpecifiedTradeSettlementLineMonetarySummation/ram:LineTotalAmount",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-146": {
+    "label": "Prix unitaire net de l'article",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "not_applicable",
+      "BASIC": "mandatory",
+      "EN 16931": "mandatory",
+      "EXTENDED": "mandatory"
+    },
+    "xpath_cii": ".../SpecifiedLineTradeAgreement/ram:NetPriceProductTradePrice/ram:ChargeAmount",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-147": {
+    "label": "Remise sur le prix de l'article",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "not_applicable",
+      "BASIC": "optional",
+      "EN 16931": "optional",
+      "EXTENDED": "optional"
+    },
+    "xpath_cii": ".../NetPriceProductTradePrice/ram:AppliedTradeAllowanceCharge/ram:ActualAmount",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-148": {
+    "label": "Prix unitaire brut de l'article",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "not_applicable",
+      "BASIC": "optional",
+      "EN 16931": "optional",
+      "EXTENDED": "optional"
+    },
+    "xpath_cii": ".../SpecifiedLineTradeAgreement/ram:GrossPriceProductTradePrice/ram:ChargeAmount",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-149": {
+    "label": "Quantité de base du prix",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "not_applicable",
+      "BASIC": "optional",
+      "EN 16931": "optional",
+      "EXTENDED": "optional"
+    },
+    "xpath_cii": ".../SpecifiedLineTradeAgreement/ram:NetPriceProductTradePrice/ram:BasisQuantity",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-150": {
+    "label": "Code unité de la quantité de base du prix",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "not_applicable",
+      "BASIC": "optional",
+      "EN 16931": "optional",
+      "EXTENDED": "optional"
+    },
+    "xpath_cii": ".../NetPriceProductTradePrice/ram:BasisQuantity/@unitCode",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-151": {
+    "label": "Code catégorie de TVA de la ligne",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "not_applicable",
+      "BASIC": "mandatory",
+      "EN 16931": "mandatory",
+      "EXTENDED": "mandatory"
+    },
+    "xpath_cii": ".../SpecifiedLineTradeSettlement/ram:ApplicableTradeTax/ram:CategoryCode",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-152": {
+    "label": "Taux de TVA de la ligne",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "not_applicable",
+      "BASIC": "conditional",
+      "EN 16931": "conditional",
+      "EXTENDED": "conditional"
+    },
+    "xpath_cii": ".../SpecifiedLineTradeSettlement/ram:ApplicableTradeTax/ram:RateApplicablePercent",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-153": {
+    "label": "Nom de l'article facturé",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "not_applicable",
+      "BASIC": "mandatory",
+      "EN 16931": "mandatory",
+      "EXTENDED": "mandatory"
+    },
+    "xpath_cii": ".../SpecifiedTradeProduct/ram:Name",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  },
+  "BT-154": {
+    "label": "Description de l'article facturé",
+    "required_by_profile": {
+      "MINIMUM": "not_applicable",
+      "BASIC WL": "not_applicable",
+      "BASIC": "optional",
+      "EN 16931": "optional",
+      "EXTENDED": "optional"
+    },
+    "xpath_cii": ".../SpecifiedTradeProduct/ram:Description",
+    "xpath_ubl": "TODO: à valider avec Fabienne si UBL est requis"
+  }
+}
