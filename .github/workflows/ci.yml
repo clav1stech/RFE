@@ -21,7 +21,7 @@ jobs:
         run: uv python install
 
       - name: Install dependencies (reproducible)
-        run: uv sync --locked
+        run: uv sync --frozen
 
       - name: Lint (ruff)
         run: uv run ruff check .
