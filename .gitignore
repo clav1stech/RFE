@@ -46,5 +46,8 @@ output/
 .DS_Store
 Thumbs.db
 
+# Scripts de lancement locaux (spécifiques à l'OS d'un dev)
+*.command
+
 # tools/export_project.py output (jamais commité)
 Export/
