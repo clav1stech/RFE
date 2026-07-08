@@ -2,6 +2,8 @@
 #    uv export --no-dev --no-hashes --no-emit-project --format requirements-txt -o requirements.txt
 altair==6.2.2
     # via streamlit
+annotated-types==0.7.0
+    # via pydantic
 anyio==4.14.1
     # via
     #   starlette
@@ -76,6 +78,10 @@ protobuf==7.35.1
     # via streamlit
 pyarrow==24.0.0
     # via streamlit
+pydantic==2.13.4
+    # via facturx-generator
+pydantic-core==2.46.4
+    # via pydantic
 pydeck==0.9.3
     # via streamlit
 python-dateutil==2.9.0.post0
@@ -108,9 +114,14 @@ typing-extensions==4.16.0
     # via
     #   altair
     #   anyio
+    #   pydantic
+    #   pydantic-core
     #   referencing
     #   starlette
     #   streamlit
+    #   typing-inspection
+typing-inspection==0.4.2
+    # via pydantic
 tzdata==2026.2 ; sys_platform == 'emscripten' or sys_platform == 'win32'
     # via pandas
 urllib3==2.7.0
