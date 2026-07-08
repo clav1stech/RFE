@@ -19,6 +19,7 @@ qu'un fichier est ajouté/déplacé, ou qu'une couche change de contrat.
 | `src/facturx_generator/__init__.py` | Surface publique du package (`Invoice`, `InvoiceLine`, `Party`, `TaxBreakdown`, `__version__`). |
 | `tools/export_project.py` | Export du repo en `.txt` curé (IA) ou `.zip` (sauvegarde) — hors exploitation. |
 | `tools/generate_changelog.py` | Régénère `CHANGELOG.md` depuis les commits de release — hors exploitation. |
+| `src/facturx_generator/bt_core/` | Modèle pivot BT/BG EN16931 (Pydantic), **exploratoire, pas encore branché sur `app.py`/`cli.py`/`generator.py`** — cf. section dédiée ci-dessous. |
 
 ## Flux de données (génération d'un XML)
 
@@ -63,3 +64,21 @@ Party / InvoiceLine  ──►  Invoice (models.py)
 ## Tests (`tests/`)
 
 Miroir de `src/facturx_generator/` : `test_models.py` (totaux/arrondis), `test_cii.py`, `test_ubl.py` (structure XML par XPath). Un changement dans `models.py` qui touche un calcul de total doit être couvert ici avant `cii.py`/`ubl.py` (les deux sérialiseurs ne font que lire ces valeurs).
+
+## `src/facturx_generator/bt_core/` — modèle pivot BT/BG (exploratoire)
+
+Chantier parallèle au modèle métier actuel (`models.py` + `cii.py`/`ubl.py`, seuls branchés sur `app.py`/`cli.py`/`generator.py`). Vise une représentation fidèle de la structure hiérarchique BT/BG EN16931 (cardinalités documentées), indépendante de Comarch et du choix final CII/UBL. **Ne pas fusionner avec le modèle métier existant sans décision explicite** — les deux modèles (`Invoice` dataclass vs `Invoice` Pydantic) coexistent sciemment tant que le chantier n'est pas arbitré.
+
+| Fichier | Rôle |
+|---|---|
+| `bt_core/enums.py` | Listes de codes fermées (type de document, catégories de TVA, unités de mesure, moyens de paiement) + `EU_COUNTRY_CODES`. |
+| `bt_core/model.py` | Modèles Pydantic BT/BG (`Invoice`, `SellerParty`, `BuyerParty`, `InvoiceLine`, `VatBreakdown`, `DocumentTotals`, `PaymentInstructions`), `extra="forbid"` — un champ non déclaré lève une erreur de validation plutôt que d'être silencieusement ignoré. |
+| `bt_core/profiles_matrix.py` | `PROFILE_MATRIX` : source de vérité unique du niveau d'exigence (mandatory/conditional/optional/not_applicable) de chaque BT pour les 5 profils Factur-X. |
+| `bt_core/mapping_data.json` + `bt_core/mapping.py` | Mapping BT → XML en fichier de configuration séparé du code (label, `xpath_cii`, `xpath_ubl`, `required_by_profile`). `required_by_profile` est généré depuis `PROFILE_MATRIX` (pas dupliqué à la main) — cf. `tests/bt_core/test_mapping.py` qui vérifie la cohérence entre les deux. `xpath_ubl` reste un placeholder TODO tant que le besoin UBL n'est pas validé avec Fabienne. |
+| `bt_core/validation.py` | Règles de cohérence métier génériques (BT-25/BT-26 selon BT-3, cohérence catégorie/taux de TVA selon la typologie client France/UE/Hors UE) — exceptions typées (`InvoiceValidationError` et sous-classes), pas de `MsgBox`. |
+| `bt_core/cii_export.py` | `to_cii`/`to_cii_xml` : génère le CII AFNOR à partir d'un `Invoice` Pydantic (lxml, échappement automatique). Appelle `validate_invoice()` avant toute sérialisation. |
+
+Invariants propres à ce module :
+- **Chaque BT modélisé dans `model.py` doit avoir une entrée dans `PROFILE_MATRIX` et dans `mapping_data.json`** — sinon `mapping.py` ne le résout pas et les tests de cohérence (`test_mapping.py`, `test_profiles_matrix.py`) échouent.
+- **`cii_export.py` valide toujours avant de sérialiser** : ne jamais contourner `validate_invoice()` pour produire du XML « quand même ».
+- **UBL non développé volontairement** dans ce module (placeholders TODO) — ne pas commencer `bt_core/ubl_export.py` sans décision explicite sur le besoin UBL.
