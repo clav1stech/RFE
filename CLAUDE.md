@@ -39,6 +39,7 @@ Détail complet dans `CONTRIBUTING.md` ; résumé opérationnel pour Claude :
 - **Passage en « Latest » : uniquement sur demande explicite de l'utilisateur.** Ne jamais promouvoir une release de sa propre initiative, même après un bump Z.
 - **`CHANGELOG.md`** suit Keep a Changelog : une entrée `## [X.Y.Z] - date` insérée par `tools/generate_changelog.py` juste avant la précédente version publiée (le chapô et la section `[Non publié]` en tête sont préservés), avec mise à jour des liens de comparaison en pied de fichier (pointant vers le tag mobile `vX.Y`, pas `vX.Y.Z`).
 - **Fichiers jamais versionnés** : `.venv/`, `__pycache__/`. `uv.lock` et `requirements.txt` sont au contraire **committés** (reproductibilité de l'environnement / compatibilité Community Cloud).
+- **Piège `uv.lock` + version dynamique** : selon la version locale d'`uv`, `uv sync`/`uv lock` peut **omettre le champ `version`** du bloc `[[package]] name = "facturx-generator"` (version dynamique lue depuis `__init__.py`). Ce champ absent fait planter le parsing TOML sur Streamlit Community Cloud (« Failed to parse `uv.lock` … missing field `version` »). Après tout `uv lock`/`uv sync` qui régénère `uv.lock`, **vérifier que ce bloc contient bien `version = "X.Y.Z"`** (alignée sur `__init__.py`) et le rajouter à la main sinon, avant de committer.
 
 ## Environnement
 ```bash
