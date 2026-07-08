@@ -55,11 +55,15 @@ def _existing_versions() -> set[str]:
 
 
 def _commits() -> list[tuple[str, str, str, str]]:
-    """Retourne (version, date, résumé, corps) pour chaque commit vX.Y.Z, du plus récent au plus ancien."""
+    """Retourne (version, date, résumé, corps) pour chaque commit vX.Y.Z, du plus récent au plus
+    ancien."""
     fmt = f"%H{COMMIT_SEP}%ad{COMMIT_SEP}%s{COMMIT_SEP}%b{ENTRY_SEP}"
     raw = subprocess.run(
         ["git", "log", "main", "--date=short", f"--pretty=format:{fmt}"],
-        cwd=BASE_DIR, capture_output=True, text=True, check=True,
+        cwd=BASE_DIR,
+        capture_output=True,
+        text=True,
+        check=True,
     ).stdout
     out = []
     for entry in raw.split(ENTRY_SEP):
@@ -122,7 +126,9 @@ def _update_footer_links(content: str, new_entries: list[tuple[str, str, str, st
     )
     if unreleased_idx is not None:
         footer_lines[unreleased_idx] = unreleased_link
-        footer_lines = footer_lines[: unreleased_idx + 1] + new_links + footer_lines[unreleased_idx + 1 :]
+        footer_lines = (
+            footer_lines[: unreleased_idx + 1] + new_links + footer_lines[unreleased_idx + 1 :]
+        )
     else:
         footer_lines = [unreleased_link, *new_links, *footer_lines]
 

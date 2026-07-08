@@ -59,9 +59,15 @@ def _build_manual() -> Invoice:
     )
     lines_df = st.data_editor(
         pd.DataFrame(
-            [{"Article (BT-153)": "Prestation", "Quantité (BT-129)": 1.0,
-              "Unité (BT-130)": "C62", "Prix unitaire (BT-146)": 100.0,
-              "Taux TVA % (BT-152)": 20.0}]
+            [
+                {
+                    "Article (BT-153)": "Prestation",
+                    "Quantité (BT-129)": 1.0,
+                    "Unité (BT-130)": "C62",
+                    "Prix unitaire (BT-146)": 100.0,
+                    "Taux TVA % (BT-152)": 20.0,
+                }
+            ]
         ),
         num_rows="dynamic",
         use_container_width=True,

@@ -38,7 +38,7 @@ BACKUP_KEEP = 15
 # pyproject.toml la reprend dynamiquement via [tool.hatch.version], cf. CLAUDE.md)
 def _get_app_version():
     init_py = project_dir / "src" / "facturx_generator" / "__init__.py"
-    with open(init_py, "r", encoding="utf-8") as f:
+    with open(init_py, encoding="utf-8") as f:
         match = re.search(r'^__version__\s*=\s*"(\d+)\.(\d+)\.(\d+)"', f.read(), re.MULTILINE)
         if match:
             return int(match.group(1)), int(match.group(2)), int(match.group(3))
@@ -75,7 +75,16 @@ EXCLUDED_FILES_AI = {"uv.lock"}
 
 # Extensions/-noms de fichiers texte inclus, communes aux deux profils
 INCLUDED_EXTENSIONS_COMMON = {
-    ".py", ".txt", ".md", ".yml", ".yaml", ".json", ".toml", ".cfg", ".ini", ".gitignore",
+    ".py",
+    ".txt",
+    ".md",
+    ".yml",
+    ".yaml",
+    ".json",
+    ".toml",
+    ".cfg",
+    ".ini",
+    ".gitignore",
 }
 
 # Extensions supplémentaires réservées au --backup : verrou de dépendances (gros fichier,
@@ -87,13 +96,18 @@ AI_ALWAYS_KEEP = {"CLAUDE.md", "CONTRIBUTING.md", "docs/CODEMAP.md"}
 
 # Indice de langage pour les fences, aide au parsing côté IA
 _LANG_BY_SUFFIX = {
-    ".py": "python", ".md": "markdown", ".yml": "yaml", ".yaml": "yaml",
-    ".json": "json", ".toml": "toml",
+    ".py": "python",
+    ".md": "markdown",
+    ".yml": "yaml",
+    ".yaml": "yaml",
+    ".json": "json",
+    ".toml": "toml",
 }
 
 
 def _get_git_info():
     """Branche + hash court + sujet du HEAD, pour tracer l'export. Tolérant à l'absence de git."""
+
     def _run(args):
         try:
             return subprocess.check_output(
@@ -101,6 +115,7 @@ def _get_git_info():
             ).strip()
         except Exception:
             return "?"
+
     return {
         "branch": _run(["git", "rev-parse", "--abbrev-ref", "HEAD"]),
         "commit": _run(["git", "rev-parse", "--short", "HEAD"]),
@@ -208,7 +223,7 @@ def export_ai(files, base_name, git, excluded=None):
         out.write(f"# ===== EXPORT PROJET {project_dir.name} =====\n")
         out.write(f"# Date        : {datetime.now():%Y-%m-%d %H:%M:%S}\n")
         out.write(f"# Branche     : {git['branch']}\n")
-        out.write(f"# Commit      : {git['commit']} \"{git['subject']}\"\n")
+        out.write(f'# Commit      : {git["commit"]} "{git["subject"]}"\n')
         out.write(f"# Version     : {VERSION_X}.{VERSION_Y}.{VERSION_Z}\n")
         out.write(
             f"# Fichiers    : {len(files)} | Taille : {total_chars // 1024} Ko "
@@ -282,16 +297,28 @@ def run(profile, only=None):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Export du projet (IA ou sauvegarde).")
     group = parser.add_mutually_exclusive_group()
-    group.add_argument("--ai", action="store_const", dest="profile", const="ai",
-                       help="Fichier .txt curé pour communication à une IA (défaut).")
-    group.add_argument("--backup", action="store_const", dest="profile", const="backup",
-                       help="Archive .zip complète pour sauvegarde hors git.")
+    group.add_argument(
+        "--ai",
+        action="store_const",
+        dest="profile",
+        const="ai",
+        help="Fichier .txt curé pour communication à une IA (défaut).",
+    )
+    group.add_argument(
+        "--backup",
+        action="store_const",
+        dest="profile",
+        const="backup",
+        help="Archive .zip complète pour sauvegarde hors git.",
+    )
     parser.set_defaults(profile="ai")
     parser.add_argument(
-        "--only", action="append", default=None,
+        "--only",
+        action="append",
+        default=None,
         help="Limiter l'export à un ou plusieurs chemins (répétable, ou séparés par des "
-             "virgules), ex. --only src/facturx_generator/cii.py. En profil --ai, CLAUDE.md, "
-             "CONTRIBUTING.md et docs/CODEMAP.md restent toujours inclus.",
+        "virgules), ex. --only src/facturx_generator/cii.py. En profil --ai, CLAUDE.md, "
+        "CONTRIBUTING.md et docs/CODEMAP.md restent toujours inclus.",
     )
     args = parser.parse_args()
     only = None
